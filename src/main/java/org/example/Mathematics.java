@@ -1,5 +1,11 @@
 package org.example;
 
+import org.example.Constant.StringConstants;
+import org.example.CustomExceptionHandler.CustomExeption;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Mathematics {
     public static boolean isNumberArmstrong(int num){
         int rem=0,sum=0,temp;
@@ -46,5 +52,43 @@ public class Mathematics {
             return true;
         else
             return false;
+    }
+    public static int getLargestNumber(int x,int y,int z){
+       int max=x;
+        if(y>max)
+            max=y;
+        if(z>max)
+            max=z;
+        return max;
+
+    }
+
+    public static void  TypeCheckOfCharacter(String string) throws CustomExeption.InvalidString, CustomExeption.EmptyString{
+        // 97 to 122 lower
+        //65 to 90 upper case
+        String strSource = string;
+
+        String strPattern = "[~!@#$%^&*()_+{}\\[\\]:;,.<>/?-]";
+
+        Pattern p = Pattern.compile(strPattern);
+        Matcher m = p.matcher(strSource);
+        if(strSource.isEmpty()){
+            throw new CustomExeption.EmptyString("Empty String Found,Please enter valid String");
+        }
+
+        if(m.find()) {
+            throw new CustomExeption.InvalidString("String contains special character(s)");
+        }
+            char[] chars = string.toCharArray();
+
+
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i]>=97 && chars[i]<=122)
+                 System.out.println(StringConstants.CHARACTER_LOWERCASE+":"+chars[i]);
+            else
+                System.out.println(StringConstants.CHARACTER_UPPERCASE+":"+chars[i]);
+        }
+
+
     }
 }
